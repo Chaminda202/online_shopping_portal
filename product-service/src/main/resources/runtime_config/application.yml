@@ -1,0 +1,8 @@
+product:
+  currencies:
+    - SGD
+    - AUD
+    - USD
+    - NZD
+    - LKR
+    - INR
