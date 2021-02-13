@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: product-microservice
+  profiles:
+    active: stg
   data:
     mongodb:
       host: localhost
@@ -14,5 +16,18 @@ product:
   currencies:
     - SGD
     - AUD
-    - USD
-    - NZD
+
+#update few configurations without creating new file
+---
+spring:
+  config:
+    active:
+      on-profile:
+        - stg
+
+server:
+  port: 9099
+
+product:
+  currencies:
+    - AUD

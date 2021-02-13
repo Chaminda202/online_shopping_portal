@@ -1,0 +1,18 @@
+server:
+  port: 9093
+
+spring:
+  application:
+    name: product-microservice in prod environment
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+
+product:
+  currencies:
+    - SGD
+    - AUD
+    - USD
+    - NZD

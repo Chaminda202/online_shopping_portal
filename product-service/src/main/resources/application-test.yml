@@ -1,0 +1,16 @@
+server:
+  port: 9094
+
+spring:
+  application:
+    name: product-microservice in dev environment
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+
+product:
+  currencies:
+    - SGD
+    - LKR
