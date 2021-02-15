@@ -12,6 +12,16 @@ spring:
       port: 27017
       database: test
 
+logging:
+  file:
+    name: d:\logs\product.log
+    path: d:\logs #spring.log default log file name
+  logback:
+    rollingpolicy:
+      max-file-size: 20KB
+  level:
+    root: DEBUG
+
 product:
   currencies:
     - SGD
