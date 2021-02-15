@@ -1,5 +1,8 @@
 package com.sprintboot.product.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sprintboot.product.model.Product;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
@@ -23,20 +26,39 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class RequestResponseLogger implements Filter {
+    private final ObjectMapper objectMapper;
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         CustomsHttpServletRequestWrapper customsHttpServletRequestWrapper = new CustomsHttpServletRequestWrapper((HttpServletRequest) request);
-        log.info("Request URI: {}", customsHttpServletRequestWrapper.getRequestURI());
+
+        String requestURI = customsHttpServletRequestWrapper.getRequestURI();
+        log.info("Request URI: {}", requestURI);
         log.info("Request Method: {}", customsHttpServletRequestWrapper.getMethod());
-        log.info("Request Body: {}", new String(customsHttpServletRequestWrapper.getByteArray()).replaceAll("\n", " ").replaceAll("\\s+",""));
+        String requestPayload = new String(customsHttpServletRequestWrapper.getByteArray());
+        //Mask the currency type in request payload
+        if ("/v1/product".equals(requestURI)) {
+            Product product = this.objectMapper.readValue(requestPayload, Product.class);
+            product.setCurrency("***");
+            requestPayload = this.objectMapper.writeValueAsString(product);
+        }
+
+        log.info("Request Body: {}", requestPayload.replaceAll("\n", " ").replaceAll("\\s+",""));
 
         CustomsHttpServletResponseWrapper customsHttpServletResponseWrapper = new CustomsHttpServletResponseWrapper((HttpServletResponse) response);
         chain.doFilter(customsHttpServletRequestWrapper, customsHttpServletResponseWrapper);
 
         log.info("Response Status: {}", customsHttpServletResponseWrapper.getStatus());
-        log.info("Response Body: {}", new String(customsHttpServletResponseWrapper.getByteArrayOutputStream().toByteArray()));
+        String responsePayload = new String(customsHttpServletResponseWrapper.getByteArrayOutputStream().toByteArray());
+        //Mask the currency type in response payload
+        if ("/v1/product".equals(requestURI)) {
+            Product product = this.objectMapper.readValue(responsePayload, Product.class);
+            product.setCurrency("***");
+            responsePayload = this.objectMapper.writeValueAsString(product);
+        }
+        log.info("Response Body: {}", responsePayload);
     }
 
     private class CustomsHttpServletRequestWrapper extends HttpServletRequestWrapper {
