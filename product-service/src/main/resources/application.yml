@@ -19,8 +19,23 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 20KB
-  level:
-    root: DEBUG
+
+#Actuator specific configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+info:
+  app:
+    name: Product Microservice
+    version: 1.0
+    description: crud operation for product
 
 product:
   currencies:
