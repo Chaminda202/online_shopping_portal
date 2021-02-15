@@ -26,9 +26,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(Product product) {
-        log.info("Inside addProduct method in product service - {}", product.toString());
+        log.info("[INFO] Inside addProduct method in product service - {}", product.toString());
         // validate amount
-        if (product.getPrice().equals(0) && product.getDiscount().compareTo(BigDecimal.ZERO) > 0) {
+        if (product.getPrice().equals(new BigDecimal(0)) && product.getDiscount().compareTo(BigDecimal.ZERO) > 0) {
+            log.warn("[WARN] Something wrong with product price");
+            log.debug("[DEBUG] Something wrong with product price");
             throw new ProductException("No discount is allowed for 0 price product");
         }
         // validate currency

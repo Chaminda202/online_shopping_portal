@@ -1,0 +1,21 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: admin-server
+
+  #Mail configuration
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: ce10f8fcc34335
+    password: f9343bf10c0bcc
+    test-connection: true
+  boot:
+    admin:
+      notify:
+        mail:
+          to:
+            - admi@gmail.com
+            - issus_onlieportal@gmail.com
