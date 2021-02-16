@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.2'
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
@@ -13,12 +13,13 @@ repositories {
 }
 
 ext {
-	set('springBootAdminVersion', "2.3.1")
+	set('springBootAdminVersion', "2.2.2")
 }
 
 dependencies {
 	implementation 'de.codecentric:spring-boot-admin-starter-server'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation group: 'com.hazelcast', name: 'hazelcast', version: '3.12.11'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
