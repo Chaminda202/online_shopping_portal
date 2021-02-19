@@ -1,5 +1,5 @@
 server:
-  port: 9089
+  port: 9090
 
 spring:
   application:
@@ -21,3 +21,14 @@ spring:
           to:
             - admi@gmail.com
             - issus_onlieportal@gmail.com
+      ui:
+        title: 'ADMIN SERVER'
+        favicon: 'assets/img/favicon.jpg'
+        favicon-danger: 'assets/img/favicon-danger.jpg'
+        login-icon: 'assets/img/logo.jpg
+        available-languages:
+          - en
+          - zh
+        view-settings:
+          - name: 'about'
+            enabled: false
