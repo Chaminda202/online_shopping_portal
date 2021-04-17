@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: product-microservice in dev environment
+    name: product-microservice in test environment
   data:
     mongodb:
       host: localhost
@@ -14,3 +14,4 @@ product:
   currencies:
     - SGD
     - LKR
+    - USD

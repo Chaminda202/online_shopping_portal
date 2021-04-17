@@ -1,7 +1,9 @@
 package com.sprintboot.product.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -17,6 +19,8 @@ import java.util.List;
 @Data
 @Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "products")
 public class Product {
     @Transient

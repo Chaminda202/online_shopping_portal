@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     public Product addProduct(Product product) {
         log.info("Inside addProduct method in product service - {}", product.toString());
         // validate amount
-        if (product.getPrice().equals(0) && product.getDiscount().compareTo(BigDecimal.ZERO) > 0) {
+        if (product.getDiscount().compareTo(product.getPrice()) > 0) {
             throw new ProductException("No discount is allowed for 0 price product");
         }
         // validate currency
@@ -77,6 +76,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> optionalProduct = this.productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             this.productRepository.deleteById(id);
+            return;
         }
         throw new RecordNotExistException("Product does not exist by id: " + id);
     }

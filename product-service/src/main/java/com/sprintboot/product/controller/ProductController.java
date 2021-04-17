@@ -34,19 +34,19 @@ public class ProductController {
     }
 
     @GetMapping(value = "productList")
-    ResponseEntity<List<Product>> productList() {
+    ResponseEntity<List<Product>> findAllProducts() {
         return ResponseEntity.ok()
                 .body(this.productService.productList());
     }
 
     @GetMapping(value = "productList/{category}")
-    ResponseEntity<List<Product>> productCategoryList(@PathVariable @NotNull String category) {
+    ResponseEntity<List<Product>> findProductsByCategory(@PathVariable @NotNull String category) {
         return ResponseEntity.ok()
                 .body(this.productService.productCategoryList(category));
     }
 
     @GetMapping(value = "product/{id}")
-    ResponseEntity<Product> productCategoryList(@PathVariable @Min(0) Integer id) {
+    ResponseEntity<Product> findProductById(@PathVariable @Min(0) Integer id) {
         return ResponseEntity.ok()
                 .body(this.productService.productById(id));
     }
